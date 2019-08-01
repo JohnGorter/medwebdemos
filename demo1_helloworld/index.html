@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+    body { margin:0px;box-sizing: border-box;}
+    </style>
+</head>
+<body>
+    <script>
+      let Helper = {
+        helpMe(){
+          return "You are just helped!"
+        }
+      }  
+      console.log(Helper.helpMe());
+    </script>
+    <div id="app">
+      <p>Using v-html directive: {{ helper.helpMe() }}</p>
+    </div>
+      <script>
+      var app = new Vue({
+          el:"#app",
+          data: {
+            helper:Helper,
+            firstname:'john',
+            lastname:'gorter',
+            number: 1
+          },
+          methods: {
+            getFullName() { return this.firstname + ", " + this.lastname}
+          }
+      });
+      </script>
+</body>
+</html>
