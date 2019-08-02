@@ -21,20 +21,30 @@ Vue.component('event-element', {
             console.log("editing this item...")
         }
     },
+    data:function() {
+        return { selected:false }
+    },
+    methods:{
+        onSelect(){ 
+            this.selected = !this.selected;
+            this.$emit("event-selected", this.event); 
+        }
+    },
     template:`
-        <div class="event"><span @click="edit"><i class="fas fa-edit"></i></span> {{event.name}} </div>
+        <div @click="onSelect" :class="{selected:selected}" class="event"><span><i class="fas fa-edit"></i></span> {{event.name}} </div>
     `
 });
 
 Vue.component("day-element", {
     props:['day', 'selected'],
+    
     methods:{
         selectDay(day){
             this.$emit('select-day', { day:day.dayname});
         }
     },
-    template:`<div class="day"><div :class="{selected:selected}" class="title" @click="selectDay(day)">{{day.dayname}}</div><div class="events">
-        <event-element v-for="event in day.events" :event="event"></event-element>
+    template:`<div class="day" :class="{selected:selected}" ><div class="title" :class="{selected:selected}" @click="selectDay(day)">{{day.dayname}}</div><div class="events">
+        <event-element v-for="event in day.events" :event="event" :key="event.name"></event-element>
         <div class="empty" v-if="day.events.length == 0">+</div>
         </div></div>`
 });

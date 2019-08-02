@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body { margin:0;padding:0;}
+
+        *, :root {
+            --main-color:red;
+            text-shadow: 5px 5px 5px black;
+        }   
+
+        #container { width:100vw; height:100vh; background-color: var(--main-color)}
+        #drawer { will-change:transform; transition:transform 1s ease-in-out;position:absolute;left:0; z-index:999;width:20vw;height:100%;background-color:yellow}
+        #drawer.hidden { transform: translateX(-20vw)}
+        #content { position:absolute;left:0; width:100%; height:100%;}
+    </style>
+    <div id="container">
+        <div id="drawer" class="container" v-bind:class="ijoreji" >drawer</div>
+        <div id="content">content</div>
+    </div>
+
+    <script>
+    document.querySelector("#content").addEventListener('click', () =>{
+        document.querySelector("#drawer").classList.toggle("hidden");
+    });
+    </script>
+</body>
+</html>   "

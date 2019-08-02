@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="parent">
+            <div id="container">
+                {{ fieldvalue }}
+                <input @click.exact="log('TADA');" @click.shift="special"  v-model=fieldvalue>
+                  
+            </input>  
+            </div>
+        </div>
+    </div>
+
+   
+    <script>
+   
+
+    new Vue({
+        el:'#app',
+        data:{
+            fieldvalue:''
+        },
+        methods:{
+            special(){ console.log("special")},
+            capitalize(){
+                this.fieldvalue = this.fieldvalue.toUpperCase();
+            },
+            submit(){
+                console.log("submitting " + this.fieldvalue);
+            },
+            escape(){
+                this.fieldvalue = "";
+            },
+            log(item){
+                console.log(`${item} click`);
+                
+            
+            }
+        },
+        mounted(){
+            // console.log("add event handlers to our template", this);
+            // document.querySelector("#parent").addEventListener('click', () => { console.log("parent click")}, false);
+            // document.querySelector("#container").addEventListener('click', () => { console.log("container click")}, false);
+        }
+
+    })
+    </script>
+</body>
+</html>

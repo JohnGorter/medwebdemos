@@ -11,29 +11,44 @@
     </style>
 </head>
 <body>
-    <script>
-      let Helper = {
-        helpMe(){
-          return "You are just helped!"
-        }
-      }  
-      console.log(Helper.helpMe());
-    </script>
     <div id="app">
-      <p>Using v-html directive: {{ helper.helpMe() }}</p>
+
+      <app-list :items="response"></app-list>
+      <app-data :url="myurl" @data-arrived="newData"></app-data>
+
     </div>
       <script>
+       Vue.component('app-list', { props:['items'],  template:`<div>Items:<ol><li v-for="item in items">{{item.make}}</li></ol></div>` });
+
+       Vue.component('app-data', {
+          render:function(h) {return h()},
+          props:['url'],
+          methods:{
+            fetch:function(){
+              fetch(this.url).then(d => d.json()).then(obj => {
+                this.$emit("data-arrived", obj);
+              });
+            }
+          },
+          watch:{
+            url:{
+              immediate:true,
+              handler(){ this.fetch(); }
+            }
+          },
+        });
+
       var app = new Vue({
           el:"#app",
-          data: {
-            helper:Helper,
-            firstname:'john',
-            lastname:'gorter',
-            number: 1
+          data:{
+            myurl:'http://localhost:8080/cars',
+            response:{}
           },
-          methods: {
-            getFullName() { return this.firstname + ", " + this.lastname}
-          }
+          methods:{
+            newData(e){
+              this.response = e;
+            }
+          },
       });
       </script>
 </body>
